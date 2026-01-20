@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abdul Samad | Professional Web Developer Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <nav class="navbar">
+        <div class="logo">A.S | <span class="neon-text">Developer</span></div> <input type="checkbox" id="menu-toggle">
+        <label for="menu-toggle" class="menu-icon"><i class="fas fa-bars"></i></label>
+        <ul class="nav-links">
+            <li><a href="#home" class="nav-link active">Home</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#skills" class="nav-link">Skills</a></li>
+            <li><a href="#services" class="nav-link">Services</a></li>
+            <li><a href="#projects" class="nav-link">Projects</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+    </nav>
+    <!-- Home -->
+    <section class="home" id="home">
+        <div class="home-content ">
+            <p class="greeting fade-in-up">Hello, I'm</p>
+            <h1 class="fade-left">Abdul Samad</h1>
+            <h2 class="typing-text fade-in-up">A Passionate <span class="neon-text">Web Developer</span></h2>
+            <p class="description fade-left"> 
+                I build responsive, modern, and high-performance web applications using
+                the latest front-end technologies. </p>
+            <div class="home-buttons fade-in-up"> <a href="https://wa.me/923223110488" target="_blank"
+                    class="btn primary-btn">HIRE ME</a>
+            </div>
+    </section>
+    <!-- About -->
+    <section class="section about" id="about">
+        <div class="container about-container">
+            <div class="about-image fade-in-up"> <img src="images/new picture.png" alt="Abdul Samad"> </div>
+            <div class="about-text fade-left ">
+                <h2 class="section-title fade-in-up">About Me</h2>
+                <h3>Creative, Dedicated, <span class="neon-text">Solution-Oriented</span></h3>
+                <!-- Dynamic paragraphs -->
+                <div id="aboutDescContainer"></div> 
+                <a href="#projects" class="btn primary-btn fade-in-up">View My
+                    Work</a>
+            </div>
+        </div>
+    </section>
+    <!-- Skills -->
+    <section class="section skills" id="skills">
+        <h2 class="section-title fade-in-up">My Skills</h2>
+        <p class="section-subtitle fade-in-up">Technologies & Tools I Work With</p>
+        <div class="container skills-container-bar fade-left" id="userSkills"> </div>
+    </section>
+    <!-- Services -->
+    <section class="section services" id="services">
+        <h2 class="section-title">My Services</h2>
+        <p class="section-subtitle">What I Offer to Clients</p>
+        <div class="services-container">
+            <div class="service-box fade-in-up"> <i class="fas fa-laptop-code icon"></i>
+                <h3>Custom Web Development</h3>
+                <p>Building fully customized, high-quality, and scalable websites from scratch using modern best
+                    practices.</p>
+            </div>
+            <div class="service-box fade-in-up delay-200"> <i class="fas fa-mobile-alt icon"></i>
+                <h3>Fully Responsive Design</h3>
+                <p>Ensuring your website looks flawless and functions perfectly on all devices: phones, tablets, and
+                    desktops.</p>
+            </div>
+            <div class="service-box fade-in-up delay-400"> <i class="fas fa-palette icon"></i>
+                <h3>Frontend UI/UX</h3>
+                <p>Crafting intuitive and engaging user interfaces focused on usability, accessibility and modern
+                    aesthetics.</p>
+            </div>
+        </div>
+    </section>
+    <!-- Projects -->
+    <section class="section projects" id="projects">
+        <h2 class="section-title">Recent Projects</h2>
+        <p class="section-subtitle">A Showcase of My Front-End Work</p>
+
+        <!-- Dynamic Projects Will Load Here -->
+        <div class="projects-container" id="projectsContainer"></div>
+    </section>
+    <!-- Contact -->
+    <section class="section contact" id="contact">
+        <h2 class="section-title fade-in-up">Get In Touch</h2>
+        <p class="section-subtitle fade-in-up">Let's Discuss Your Next Project</p>
+        <div class="contact-container">
+            <div class="contact-info ">
+                <h3>Contact Information</h3>
+                <p>I am currently open to new opportunities. Feel free to reach out via email or phone.</p>
+                <div class="info-group"> <i class="fas fa-envelope neon-text"></i> <span>Email :</span>
+                    samadab1579@gmail.com </div>
+                <div class="info-group"> <i class="fas fa-phone neon-text"></i> <span>Phone :</span> +92 322 3110488
+                </div>
+                <div class="info-group"> <i class="fas fa-map-marker-alt neon-text"></i> <span>Location :</span>
+                    Pakistan </div>
+                <div class="social-icons fade-in-up"> <a href="https://web.facebook.com/abdul.samad.598057"
+                        target="_blank"><i class="fa-brands fa-facebook-f"></i></a> <a href="https://wa.me/923223110488"
+                        target="_blank"><i class="fab fa-whatsapp"></i></a> <a href="https://github.com/samadmemon930"
+                        target="_blank"><i class="fab fa-github"></i></a> <a href="https://www.linkedin.com/in/abdul-samad-4b175236b?utm_source=share_via&utm_content=profile&utm_medium=member_android"><i
+                            class="fab fa-linkedin-in"></i></a> </div>
+            </div>
+            <div class="contact-form ">
+                <form> <input type="text" name="name" placeholder="Your Name" required> <input type="email" name="email"
+                        placeholder="Your Email" required> <textarea name="message"
+                        placeholder="Your Message / Project Details" rows="6" required></textarea> <button type="submit"
+                        class="btn primary-btn fade-in-up">Send Message</button> </form>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-text">© 2025 <span>Abdul Samad Developer.</span> All Rights Reserved.</p>
+    </footer> 
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.2.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.2.0/firebase-database-compat.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
