@@ -182,19 +182,19 @@ html.smooth-scroll {
 }
 
 /* Icon base animation */
-.menu-icon i {
+/* .menu-icon i {
     transition: transform 0.35s ease, opacity 0.25s ease;
-}
+} */
 
 /* Hamburger → Close */
-#menu-toggle:checked + .menu-icon i {
+/* #menu-toggle:checked + .menu-icon i {
     transform: rotate(180deg) scale(1.1);
-}
+} */
 
 /* Optional: thora bounce feel */
-.menu-icon i::before {
+/* .menu-icon i::before {
     transition: all 0.35s ease;
-}
+} */
 
 
 /* ===== 1. Home Section Fixed ===== */
