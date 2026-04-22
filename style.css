@@ -1,7 +1,7 @@
 /* ===== Global Reset and Variables ===== */
 :root {
     --bg-color: #141414;
-    --secondary-bg-color: #1a1a1a;
+    --secondary-bg-color: #1f1f1f;
     --text-color: #ffffff;
     --neon-color: #39ff14;
     --font-family: 'Roboto', sans-serif;
@@ -320,7 +320,7 @@ html.smooth-scroll {
 
 .service-box {
     width: 100%;
-    background: #1f1f1f;
+    background: var(--secondary-bg-color);
     padding: 3rem 2rem;
     border-radius: 15px;
     border: 2px solid transparent;

@@ -73,38 +73,67 @@ const scrollToHashInstant = () => {
 
 // --- 3. ANIMATIONS ---
 const handleSkillAnimation = () => {
-    const skillsSection = document.getElementById('skills');
-    if (!skillsSection) return;
-    const rect = skillsSection.getBoundingClientRect();
-    if (rect.top < window.innerHeight - 150 && rect.bottom > 0) {
-        const skillItems = document.querySelectorAll('.skill-bar-item');
-        skillItems.forEach(item => {
-            const progressValue = parseInt(item.getAttribute('data-progress'));
-            const fillElement = item.querySelector('.progress-bar-fill');
-            const percentageElement = item.querySelector('.skill-percentage');
+    const skillItems = document.querySelectorAll('.skill-bar-item');
+    
+    skillItems.forEach(item => {
+        // Ab har ek skill line ki apni position check hogi
+        const rect = item.getBoundingClientRect();
+        
+        // Agar yeh specific skill screen ke andar aaye
+        if (rect.top < window.innerHeight - 30 && rect.bottom > 0) {
             if (!animatedSkills.has(item)) {
                 animatedSkills.add(item);
-                fillElement.style.width = `${progressValue}%`;
+                
+                const progressValue = parseInt(item.getAttribute('data-progress'));
+                const fillElement = item.querySelector('.progress-bar-fill');
+                const percentageElement = item.querySelector('.skill-percentage');
+                
+                if (fillElement) fillElement.style.width = `${progressValue}%`;
+                
                 let current = 0;
+                // Interval ko 20ms se barha kar 40ms kar diya hai taake animation aur slow ho jaye
                 const interval = setInterval(() => {
-                    current += Math.ceil(progressValue / 50);
+                    current += 1;
                     if (current >= progressValue) {
                         current = progressValue;
                         clearInterval(interval);
                     }
-                    percentageElement.textContent = `${current}%`;
-                }, 30);
+                    if (percentageElement) percentageElement.textContent = `${current}%`;
+                }, 40); 
             }
-        });
-    }
+        } 
+        // Agar yeh specific skill screen se bahar chali jaye to isay reset kar do
+        else {
+            if (animatedSkills.has(item)) {
+                animatedSkills.delete(item);
+                const fillElement = item.querySelector('.progress-bar-fill');
+                const percentageElement = item.querySelector('.skill-percentage');
+                
+                if (fillElement) fillElement.style.width = '0%';
+                if (percentageElement) percentageElement.textContent = '0%';
+            }
+        }
+    });
 };
 
 const handleScrollAnimations = () => {
     const elements = document.querySelectorAll('.fade-in-up, .fade-left, .fade-right, .service-box, .project-card');
+    
     elements.forEach(el => {
         const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight - 100) {
+        const windowHeight = window.innerHeight;
+        
+        // Home section ke andar jo elements hain unko check karne ke liye
+        const isInsideHome = el.closest('#home') !== null;
+
+        if (rect.top < windowHeight - 50 && rect.bottom > 50) {
             el.classList.add('active-animate');
+        } 
+        else {
+            // Sirf tab remove karein agar element HOME section ka hissa NAHI hai
+            if (!isInsideHome) {
+                el.classList.remove('active-animate');
+            }
         }
     });
 };
