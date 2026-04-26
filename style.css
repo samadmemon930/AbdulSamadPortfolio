@@ -34,8 +34,8 @@ html.smooth-scroll {
 }
 
 .section {
-    padding: 3rem 7rem;
-    scroll-padding-top: 3rem;
+    padding: 4rem 7rem;
+    scroll-padding-top: 4rem;
     min-height: 500px;
     /* Data load hone se pehle jagah rok ke rakhega */
 }
@@ -214,12 +214,10 @@ html.smooth-scroll {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 3rem;
 }
 
 .about-image {
     flex: 1 1 45%;
-    text-align: center;
 }
 
 .about-image img {
@@ -394,7 +392,7 @@ html.smooth-scroll {
 }
 
 .project-content h1 {
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     font-weight: 500;
     color: var(--text-color);
     margin-bottom: 5px;
@@ -411,7 +409,7 @@ html.smooth-scroll {
     color: var(--neon-color);
     margin-right: 20px;
     font-weight: 500;
-    font-size: 17px;
+    font-size: 1rem;
     text-decoration: none;
 }
 

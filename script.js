@@ -1,11 +1,20 @@
+// ==========================================================================
+// 1. BROWSER FIXES & GLOBAL VARIABLES
+// ==========================================================================
 // --- CRITICAL FIX: Stop browser from auto-scrolling on refresh ---
 if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
 }
 
+// Variables for animations and loading states
 let animatedSkills = new Set();
+let aboutLoaded = false, skillsLoaded = false, projectsLoaded = false;
 
-// --- 1. FUNCTION: Handle Active Nav Links & Update URL Hash ---
+
+// ==========================================================================
+// 2. NAVIGATION & URL MANAGEMENT (Home, About, Services, Contact, etc.)
+// ==========================================================================
+// --- FUNCTION: Handle Active Nav Links & Update URL Hash ---
 const handleActiveNavLinks = () => {
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('.nav-link');
@@ -50,7 +59,11 @@ const handleActiveNavLinks = () => {
     }
 };
 
-// --- 2. FUNCTION: Initial Load (Simplified) ---
+
+// ==========================================================================
+// 3. INITIAL LOAD & SCROLL POSITIONING
+// ==========================================================================
+// --- FUNCTION: Initial Load (Simplified) ---
 const scrollToHashInstant = () => {
     const hash = window.location.hash;
     
@@ -71,7 +84,40 @@ const scrollToHashInstant = () => {
     handleActiveNavLinks();
 };
 
-// --- 3. ANIMATIONS ---
+// --- FUNCTION: Check if all Firebase data is loaded ---
+function checkAllLoaded() {
+    if (aboutLoaded && skillsLoaded && projectsLoaded) {
+        const hash = window.location.hash;
+        
+        // Agar URL mein koi specific section hai (#projects, #services etc.)
+        if (hash && hash !== '#home') {
+            const targetElement = document.querySelector(hash);
+            if (targetElement) {
+                const headerOffset = 60;
+                const offsetPosition = targetElement.offsetTop - headerOffset;
+                
+                // Foran wahi scroll karwao taake jump nazar na aaye
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'auto' 
+                });
+            }
+        }
+        
+        // Content animations ko trigger karein
+        handleScrollAnimations(true);
+        handleActiveNavLinks();
+        
+        // Future clicks ke liye smooth scroll on karein
+        document.documentElement.classList.add('smooth-scroll');
+    }
+}
+
+
+// ==========================================================================
+// 4. ANIMATIONS (Skills, Services, Projects, Contact)
+// ==========================================================================
+// --- SKILLS ANIMATION ---
 const handleSkillAnimation = () => {
     const skillItems = document.querySelectorAll('.skill-bar-item');
     
@@ -116,6 +162,7 @@ const handleSkillAnimation = () => {
     });
 };
 
+// --- GENERAL SCROLL ANIMATIONS (All Sections) ---
 const handleScrollAnimations = () => {
     const elements = document.querySelectorAll('.fade-in-up, .fade-left, .fade-right, .service-box, .project-card');
     
@@ -138,41 +185,16 @@ const handleScrollAnimations = () => {
     });
 };
 
-// --- 4. EXECUTION ---
+
+// ==========================================================================
+// 5. EVENT LISTENERS (Clicks, Scrolling, Mobile Menu)
+// ==========================================================================
+// INITIAL PAGE LOAD
 document.addEventListener('DOMContentLoaded', () => {
     scrollToHashInstant();
 });
 
-// --- Updated checkAllLoaded for precise refresh positioning ---
-function checkAllLoaded() {
-    if (aboutLoaded && skillsLoaded && projectsLoaded) {
-        const hash = window.location.hash;
-        
-        // Agar URL mein koi specific section hai (#projects, #services etc.)
-        if (hash && hash !== '#home') {
-            const targetElement = document.querySelector(hash);
-            if (targetElement) {
-                const headerOffset = 60;
-                const offsetPosition = targetElement.offsetTop - headerOffset;
-                
-                // Foran wahi scroll karwao taake jump nazar na aaye
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'auto' 
-                });
-            }
-        }
-        
-        // Content animations ko trigger karein
-        handleScrollAnimations(true);
-        handleActiveNavLinks();
-        
-        // Future clicks ke liye smooth scroll on karein
-        document.documentElement.classList.add('smooth-scroll');
-    }
-}
-
-// LINK CLICK EVENT
+// LINK CLICK EVENT (Menu Navigation)
 document.querySelectorAll('.nav-link').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -196,45 +218,48 @@ document.querySelectorAll('.nav-link').forEach(anchor => {
     });
 });
 
+// WINDOW SCROLL EVENT
 window.addEventListener('scroll', () => {
     handleActiveNavLinks();
     handleScrollAnimations();
     handleSkillAnimation();
 });
 
-// --- FIREBASE CONFIG ---
+// MOBILE MENU TOGGLE FIX
+const menuToggle = document.getElementById('menu-toggle');
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => { if (menuToggle && menuToggle.checked) menuToggle.checked = false; });
+});
+
+
+// ==========================================================================
+// 6. FIREBASE CONFIGURATION & SECTION DATA FETCHING
+// ==========================================================================
 const database = firebase.database();
 
-let aboutLoaded = false, skillsLoaded = false, projectsLoaded = false;
-
-// --- FIREBASE CONFIG (ABOUT SECTION ONLY) ---
+// --- 6.1 ABOUT SECTION DATA ---
 database.ref("about/descriptions").on("value", snapshot => {
     const container = document.getElementById("aboutDescContainer");
     
     if (container) {
-        // Purana data clear karein pehle
         container.innerHTML = "";
-
-        // Firebase snapshot par loop chalayein
         snapshot.forEach(childSnapshot => {
-            const text = childSnapshot.val(); // Har description ka text uthayein
-            
+            const text = childSnapshot.val(); 
             if (text) {
                 const p = document.createElement("p");
                 p.textContent = text;
-                // Fade-in animation (optional) agar aapki CSS mein hai
                 p.className = "fade-in-up"; 
                 container.appendChild(p);
             }
         });
     }
-
-    // Flags update karein loading check karne ke liye
     aboutLoaded = true; 
     if (typeof checkAllLoaded === "function") {
         checkAllLoaded();
     }
 });
+
+// --- 6.2 SKILLS SECTION DATA ---
 database.ref("skills").on("value", snapshot => {
     const container = document.getElementById("userSkills");
     if(container) {
@@ -251,6 +276,7 @@ database.ref("skills").on("value", snapshot => {
     skillsLoaded = true; checkAllLoaded();
 });
 
+// --- 6.3 PROJECTS SECTION DATA ---
 database.ref("projects").on("value", snapshot => {
     const container = document.getElementById("projectsContainer");
     if(container) {
@@ -264,9 +290,4 @@ database.ref("projects").on("value", snapshot => {
         });
     }
     projectsLoaded = true; checkAllLoaded();
-});
-
-const menuToggle = document.getElementById('menu-toggle');
-document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => { if (menuToggle && menuToggle.checked) menuToggle.checked = false; });
 });
