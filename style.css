@@ -125,7 +125,7 @@ html.smooth-scroll {
     /* 👇 Glass effect */
     background: rgba(15, 15, 15, 0.8);
     backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.20);
     /* 👈 stronger */
     transition: background 0.3s ease, backdrop-filter 0.3s ease;
 }
@@ -138,7 +138,7 @@ html.smooth-scroll {
 
 .nav-links {
     display: flex;
-    gap: 2.5rem;
+    gap: 3.5rem;
     list-style: none;
 }
 
@@ -570,12 +570,16 @@ html.smooth-scroll {
         padding: 1rem 3rem;
     }
 
+    .nav-links{
+        gap: 2.5rem;
+    }
+
     .home {
         padding-inline: 3rem;
     }
 
     .about-container {
-        gap: 4rem;
+        gap: 3rem;
     }
 
     .about-text p {
