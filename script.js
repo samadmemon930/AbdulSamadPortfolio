@@ -232,25 +232,6 @@ document.querySelectorAll('.nav-links a').forEach(link => {
 });
 
 
-function openResume(e) {
-    e.preventDefault(); // default download behavior stop
-
-    const url = "assets/Abdul Samad CV.pdf";
-
-    fetch(url)
-        .then(response => response.blob())
-        .then(blob => {
-            const fileURL = URL.createObjectURL(blob);
-            window.open(fileURL, "_blank");
-        })
-        .catch(() => {
-            // fallback if fetch fails
-            window.open(url, "_blank");
-        });
-}
-
-
-
 // ==========================================================================
 // 6. FIREBASE CONFIGURATION & SECTION DATA FETCHING
 // ==========================================================================
@@ -267,7 +248,8 @@ database.ref("about/descriptions").on("value", snapshot => {
             if (text) {
                 const p = document.createElement("p");
                 p.textContent = text;
-                p.className = "fade-in-up"; 
+                p.className =
+                 "fade-in-up"; 
                 container.appendChild(p);
             }
         });
